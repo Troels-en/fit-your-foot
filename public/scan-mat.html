@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Fitly Scan-Blatt — Druckvorlage</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #111;
+  }
+  .screen-only {
+    padding: 24px;
+    border-bottom: 2px solid #000;
+  }
+  .screen-only h1 {
+    margin: 0 0 8px;
+    font-size: 22px;
+  }
+  .screen-only p {
+    margin: 4px 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .screen-only ol {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .print-button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #111;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  @media print {
+    .screen-only { display: none; }
+    @page { margin: 0; }
+    html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  .mat-wrap {
+    margin: 18mm auto 0;
+    width: 120mm;
+    page-break-inside: avoid;
+    position: relative;
+  }
+  .mat-img {
+    /* Echte 120 × 180 mm gedruckt — entspricht der internen Marker-Geometrie
+       (4×30mm × 6×30mm). Jeder Marker = 24mm Inhalt + 3mm white-quiet-zone
+       beidseitig (= ein 30mm-Cell-Slot). */
+    display: block;
+    width: 120mm;
+    height: 180mm;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  .label-strip {
+    position: absolute;
+    top: -10mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  .scale-marker {
+    position: absolute;
+    bottom: -10mm;
+    font-size: 9pt;
+    font-family: monospace;
+  }
+  .scale-marker.left { left: 0; }
+  .scale-marker.right { right: 0; }
+  /* 60mm-Verifikations-Strecke — User-Lineal-Check. Box-sizing: border-box
+     damit OUTER edge-to-edge exakt 60mm ist (sonst würden Border-Widths
+     additional ~1mm dazuaddieren). Ruler misst Außenkante-zu-Außenkante. */
+  .verify-rule {
+    margin: 6mm auto 0;
+    width: 60mm;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .verify-rule .bar {
+    height: 4mm;
+    border-left: 1.5pt solid #000;
+    border-right: 1.5pt solid #000;
+    border-top: 0.5pt solid #000;
+    box-sizing: border-box;
+  }
+  .verify-rule .label {
+    margin-top: 2mm;
+    font-size: 9pt;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .verify-rule .hint {
+    margin-top: 1mm;
+    font-size: 7pt;
+    color: #444;
+  }
+  .print-warning {
+    margin: 4mm 18mm 0;
+    padding: 3mm;
+    border: 1pt dashed #000;
+    font-size: 9pt;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="screen-only">
+    <h1>Fitly Scan-Blatt (ArUco-Marker DICT_4X4_50)</h1>
+    <p><strong>Wichtig:</strong> Drucke mit <strong>tatsächlicher Größe (100 %)</strong>. NICHT „an Seite anpassen", keine Skalierung verwenden. Falsch skaliert = Maße sind ungenau.</p>
+    <ol>
+      <li>Druck auf <strong>weißes A4-Papier</strong>, Laser oder matter Inkjet.</li>
+      <li><strong>Schuhgröße EU 43 oder größer?</strong> Nimm das A3-Format: <a href="/scan-mat-a3.html">scan-mat-a3.html</a></li>
+      <li>Leg das Blatt <strong>flach auf hartem Boden</strong> (Fliesen / Holz / Laminat). Teppich oder weicher Boden → ungenau.</li>
+      <li>Die Kante mit „↑ WAND-SEITE" liegt an der Wand, ganz an der Fußleiste.</li>
+      <li>Stell den nackten Fuß <strong>auf das Blatt</strong>, Ferse berührt die Wand.</li>
+      <li><strong>Verifikation mit Lineal:</strong> die markierte 60-mm-Strecke unten — gemessen <strong>von Außenkante zu Außenkante</strong> der schwarzen Striche — muss exakt <strong>60 mm</strong> sein (±1 mm). Stimmt nicht → Drucker-Skalierung war falsch, neu drucken.</li>
+    </ol>
+    <button class="print-button" onclick="window.print()">Jetzt drucken</button>
+    <p style="margin-top: 16px; font-size: 12px; color: #666;">
+      ArUco-Codes aus DICT_4X4_50 (IDs 0-23). Der serverseitige OpenCV-Detector
+      erkennt Marker sub-pixel-genau. Wand-Referenz ist die obere Marker-Reihe
+      (nicht die Papier-Kante) — der 18-mm-Page-Margin wird ignoriert; die
+      „WAND-SEITE"-Marker definieren die Heel-Origin im Mess-Koord-System. Die
+      60-mm-Verifikations-Strecke ist eine manuelle Lineal-Prüfung für dich —
+      die App misst den Druck-Maßstab unabhängig davon über die Marker-Geometrie
+      und lehnt bei >2 % Abweichung den Scan ab.
+    </p>
+  </div>
+
+  <div class="mat-wrap">
+    <div class="label-strip">↑ WAND-SEITE — diese Kante an die Wand legen</div>
+    <img class="mat-img" src="/scan-mat-aruco.png" alt="Fitly Scan-Blatt mit ArUco-Markern" />
+    <div class="scale-marker left">↤ 30 mm pro Marker-Cell</div>
+    <div class="scale-marker right">120 × 180 mm gesamt ↦</div>
+  </div>
+
+  <div class="verify-rule">
+    <div class="bar"></div>
+    <div class="label">↤ 60 mm Verifikations-Strecke ↦</div>
+    <div class="hint">Mit Lineal nachmessen. Exakt 60 mm = Druck-Skalierung korrekt.</div>
+  </div>
+
+  <div class="print-warning">
+    Drucke „Tatsächliche Größe (100 %)" — KEIN „An Seite anpassen", KEINE Skalierung.
+  </div>
+</body>
+</html>

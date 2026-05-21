@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fitly Design System — Inspired by Volumental
+   Pure white, deep navy, coral accent, large confident numbers.
+   All colors HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 45% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 45% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 45% 11%;
+
+    /* Deep navy — primary brand */
+    --primary: 222 47% 11%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft neutral */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 222 45% 11%;
+
+    --muted: 210 20% 97%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Coral accent (Volumental "Book a demo" color) */
+    --accent: 8 86% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Fit score semantic colors */
+    --fit-great: 152 56% 40%;
+    --fit-decent: 38 92% 50%;
+    --fit-poor: 0 72% 51%;
+
+    --border: 214 25% 92%;
+    --input: 214 25% 92%;
+    --ring: 222 47% 11%;
+
+    --radius: 1rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 50% 18%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 20% 98%) 100%);
+    --shadow-card: 0 1px 3px 0 hsl(222 45% 11% / 0.04), 0 1px 2px -1px hsl(222 45% 11% / 0.04);
+    --shadow-elevated: 0 10px 40px -10px hsl(222 45% 11% / 0.12);
+    --shadow-glow: 0 0 60px hsl(8 86% 67% / 0.25);
+
+    --pitch-bg: 220 28% 3%;
+    --pitch-surface: 220 20% 7%;
+    --pitch-ink: 0 0% 96%;
+    --pitch-muted: 230 8% 58%;
+    --pitch-accent: 164 84% 45%;
+    --pitch-line: 220 18% 16%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 45% 11%;
+    --sidebar-primary: 222 47% 11%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 25% 92%;
+    --sidebar-ring: 222 47% 11%;
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 0 0% 100%;
+    --card: 222 47% 9%;
+    --card-foreground: 0 0% 100%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 222 35% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 222 35% 15%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 8 86% 67%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 35% 18%;
+    --input: 222 35% 18%;
+    --ring: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+    font-feature-settings: 'ss01';
+  }
+}
+
+@layer components {
+  .measurement-number {
+    @apply font-semibold tracking-tight tabular-nums;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fit-pill-great {
+    @apply bg-[hsl(var(--fit-great)/0.12)] text-[hsl(var(--fit-great))];
+  }
+  .fit-pill-decent {
+    @apply bg-[hsl(var(--fit-decent)/0.14)] text-[hsl(var(--fit-decent))];
+  }
+  .fit-pill-poor {
+    @apply bg-[hsl(var(--fit-poor)/0.12)] text-[hsl(var(--fit-poor))];
+  }
+}
+
+/* === Pitch Deck scope ===
+   The pitch deck uses a dark palette + green accent, isolated from the
+   rest of the (light) site. Applied only inside `.pitch-scope`. */
+@layer base {
+  .pitch-scope {
+    --background: 240 17% 3%;
+    --foreground: 0 0% 95%;
+    --card: 240 14% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 240 14% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 240 17% 3%;
+    --secondary: 240 10% 14%;
+    --secondary-foreground: 0 0% 85%;
+    --muted: 240 10% 14%;
+    --muted-foreground: 240 5% 55%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 240 17% 3%;
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
+    --ring: 160 84% 39%;
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .pitch-scope .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(160 84% 55%));
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(160 84% 39% / 0.2); }
+  50% { box-shadow: 0 0 40px hsl(160 84% 39% / 0.4); }
+}

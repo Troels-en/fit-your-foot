@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Fitly Tech Update & Next Steps</title>
+    <style>
+        :root {
+            --bg: #05060a;
+            --surface: #0d1017;
+            --ink: #f4f4f5;
+            --muted: #8b8d98;
+            --accent: #18d39b;
+            --alert: #ff4757;
+            --line: #262a34;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+            overflow: hidden;
+        }
+        button, a { font: inherit; }
+        .top {
+            position: absolute; z-index: 20; left: 24px; right: 24px; top: 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand {
+            display: flex; align-items: center; gap: 9px; font-weight: 950;
+            color: var(--ink); text-decoration: none;
+        }
+        .brand svg { color: var(--accent); }
+        .topRight {
+            display: flex; align-items: center; gap: 12px; color: var(--muted);
+            font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: .18em;
+        }
+        .stage {
+            min-height: 100vh; display: grid; place-items: center; padding: 96px 24px;
+        }
+        .slide {
+            width: 100%; max-width: 1150px; text-align: center; animation: fade .3s ease-out;
+        }
+        .eyebrow {
+            margin-bottom: 30px; color: var(--muted); font-size: 12px;
+            font-weight: 950; text-transform: uppercase; letter-spacing: .24em;
+        }
+        .title {
+            margin: 0 auto; max-width: 980px; font-size: 84px; line-height: .95;
+            letter-spacing: -.04em; font-weight: 950;
+        }
+        .accent { color: var(--accent); }
+        .alert { color: var(--alert); }
+        .line {
+            margin: 28px auto 0; max-width: 680px; color: var(--muted);
+            font-size: 20px; line-height: 1.55; font-weight: 650;
+        }
+        .visual { margin-top: 48px; }
+        .panel {
+            border: 1px solid var(--line); background: var(--surface); padding: 22px;
+        }
+        .grid2, .grid3, .grid4 {
+            display: grid; gap: 12px; margin: auto;
+        }
+        .grid2 { grid-template-columns: repeat(2, 1fr); max-width: 860px; }
+        .grid3 { grid-template-columns: repeat(3, 1fr); max-width: 960px; }
+        .grid4 { grid-template-columns: repeat(4, 1fr); max-width: 1000px; }
+        
+        .card, .cell {
+            border: 1px solid var(--line); background: var(--surface); padding: 30px;
+            text-align: left; color: var(--ink); cursor: pointer; transition: .18s;
+            display: flex; flex-direction: column; justify-content: center; min-height: 140px;
+        }
+        .card:hover, .cell:hover {
+            transform: translateY(-4px); border-color: var(--accent);
+        }
+        .active {
+            border-color: var(--accent) !important; background: rgba(24,211,155,.08) !important;
+        }
+        .active-alert {
+            border-color: var(--alert) !important; background: rgba(255,71,87,.08) !important;
+        }
+        .wide { grid-column: 1 / -1; text-align: center; font-weight: 850; }
+        .card b, .cell b { font-size: 24px; margin-bottom: 8px; display: block; }
+        .small {
+            display: block; color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1.4;
+        }
+        .num {
+            color: var(--accent); font-size: 30px; font-weight: 950; margin-bottom: 20px;
+        }
+        .num-alert {
+            color: var(--alert); font-size: 30px; font-weight: 950; margin-bottom: 20px;
+        }
+        .done {
+            display: flex; align-items: center; gap: 12px; border: 1px solid var(--line);
+            background: var(--surface); padding: 20px; font-weight: 800; font-size: 18px; text-align: left;
+        }
+        .check {
+            display: grid; place-items: center; width: 32px; height: 32px;
+            border-radius: 999px; background: var(--accent); color: #05060a; flex-shrink: 0;
+        }
+        .bottom {
+            position: absolute; z-index: 20; left: 24px; right: 24px; bottom: 26px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav {
+            display: grid; place-items: center; width: 44px; height: 44px;
+            border: 1px solid var(--line); border-radius: 999px; background: transparent;
+            color: var(--muted); cursor: pointer; font-size: 20px;
+        }
+        .nav:hover { border-color: var(--accent); color: var(--ink); }
+        .center { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+        .dots { display: flex; gap: 8px; }
+        .dot {
+            height: 6px; width: 16px; border: 0; border-radius: 999px; background: var(--line); cursor: pointer; transition: 0.3s;
+        }
+        .dot.active { width: 40px; background: var(--accent); }
+        
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: none; }
+        }
+        @media (max-width: 900px) {
+            .title { font-size: 48px; }
+            .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top">
+        <a class="brand" href="#"><span style="color:var(--accent)">⌁</span> Fitly</a>
+        <div class="topRight">Tech & Product Update</div>
+    </header>
+    
+    <main class="stage">
+        <section id="slide" class="slide"></section>
+    </main>
+    
+    <nav class="bottom">
+        <button class="nav" onclick="prev()">‹</button>
+        <div class="center">
+            <span id="count">1 / 6</span>
+            <div id="dots" class="dots"></div>
+        </div>
+        <button class="nav" onclick="next()">›</button>
+    </nav>
+
+    <script>
+        const slides = [
+            {
+                eyebrow: 'Update-Termin',
+                title: 'Stand seit dem',
+                accent: 'letzten Update.',
+                line: 'Was im Code passiert ist, wo wir aktuell hängen — und warum die nächsten zwei Wochen Pause sind.',
+                kind: 'intro'
+            },
+            {
+                eyebrow: 'Was passiert ist — Teil 1',
+                title: 'Zwei Scanner-Modi',
+                accent: 'im UI.',
+                line: 'Im Smartphone-Browser kann der Nutzer jetzt zwischen schnell und genau wählen. Der Schnell-Modus läuft technisch, liefert aber noch keine zuverlässig guten Werte.',
+                kind: 'frontend'
+            },
+            {
+                eyebrow: 'Was passiert ist — Teil 2',
+                title: 'Neue Backend-',
+                accent: 'Pipeline.',
+                line: 'Im Code-Repo: neue API-Endpunkte für die genaue Messung, sichere Verbindung zwischen App und Server, Validierungs-Skript für Realdaten.',
+                kind: 'backend'
+            },
+            {
+                eyebrow: 'Wo es hakt',
+                title: 'Code da,',
+                accent: 'Wirkung fehlt.',
+                line: 'Ehrlich: Code allein bringt nichts, wenn er nicht produktiv ist. Vier Dinge blockieren echten Fortschritt.',
+                kind: 'gap'
+            },
+            {
+                eyebrow: 'Plan',
+                title: 'Zwei Wochen',
+                accent: 'Pause.',
+                line: 'Master-Thesis hat Vorrang — sonst komme ich nicht durch. Fitly bleibt für 2 Wochen auf Hold. Danach Status-Termin: was wir abgeschlossen haben, was offen ist, wie es weitergeht.',
+                kind: 'next'
+            }
+        ];
+
+        let i = 0;
+
+        function renderVisual(k) {
+            if (k === 'intro') {
+                return `
+                <div class="grid3">
+                    <div class="card active"><div class="num">01</div><b>Realität</b><span class="small">Tempo & Prioritäten</span></div>
+                    <div class="card active"><div class="num">02</div><b>Code</b><span class="small">Was wurde gebaut</span></div>
+                    <div class="card active"><div class="num">03</div><b>Production</b><span class="small">Was noch fehlt</span></div>
+                </div>`;
+            }
+            if (k === 'frontend') {
+                return `
+                <div class="grid2" style="max-width: 900px;">
+                    <div class="panel" style="text-align: left;">
+                        <h3 style="color: var(--ink); margin: 0 0 8px 0; font-size: 22px;">Schnell-Modus</h3>
+                        <p style="color: var(--muted); margin: 0 0 10px 0; font-size: 14px;">Zwei Fotos (von oben + von der Seite). 60-90 Sekunden. Auf ein DIN-A4-Blatt als Größen-Referenz. Ziel: ±5 mm Genauigkeit.</p>
+                        <b style="font-size: 16px; color: var(--alert);">Status: läuft, aber Werte noch nicht gut genug</b>
+                    </div>
+                    <div class="panel" style="text-align: left;">
+                        <h3 style="color: var(--ink); margin: 0 0 8px 0; font-size: 22px;">Premium-Modus</h3>
+                        <p style="color: var(--muted); margin: 0 0 10px 0; font-size: 14px;">Mehrere Fotos mit Kalibrierungs-Frames. Liefert 3D-Modell des Fußes inkl. Bogenhöhe. Ziel: ±3 mm — gleichwertig mit professionellen Geräten im Schuhladen.</p>
+                        <b style="font-size: 16px; color: var(--alert);">Status: UI live, Backend noch nicht</b>
+                    </div>
+                    <div class="done wide" style="grid-column: 1 / -1; margin-top: 8px; padding: 14px;">
+                        <span style="font-size: 13px; color: var(--muted);">Heute morgen gepusht: der Mobile-Browser zeigt jetzt einen Auswahl-Screen vor der Aufnahme.</span>
+                    </div>
+                </div>`;
+            }
+            if (k === 'backend') {
+                return `
+                <div class="grid3" style="max-width: 1000px;">
+                    <div class="cell" style="text-align: left;">
+                        <b style="font-size: 18px; color: var(--accent);">Foto-Validierung</b>
+                        <span class="small" style="margin-top: 10px; line-height: 1.5;">Server prüft jedes Foto live: zu dunkel? unscharf? A4-Blatt erkannt? Fuß vollständig drauf? Nutzer kriegt sofort Feedback.</span>
+                    </div>
+                    <div class="cell" style="text-align: left;">
+                        <b style="font-size: 18px; color: var(--accent);">Messung</b>
+                        <span class="small" style="margin-top: 10px; line-height: 1.5;">Kombiniert Top- und Seiten-Foto zu einem 3D-Punktmodell des Fußes. Liefert Länge, Breite, Bogenhöhe, Knöchel-Position.</span>
+                    </div>
+                    <div class="cell" style="text-align: left;">
+                        <b style="font-size: 18px; color: var(--accent);">API-Sicherheit</b>
+                        <span class="small" style="margin-top: 10px; line-height: 1.5;">Jeder Aufruf signiert mit Session-Token. Verhindert dass Fremde unsere Rechen-Endpunkte missbrauchen — Server-Kosten unter Kontrolle.</span>
+                    </div>
+                    <div class="done wide" style="grid-column: 1 / -1; margin-top: 12px; padding: 14px; border-color: var(--alert);">
+                        <span style="font-size: 13px; color: var(--muted);"><b style="color: var(--alert);">Aber:</b> dieser Code ist noch nicht auf dem Live-Server. Auf dem Server läuft die Vor-Version vom letzten Termin.</span>
+                    </div>
+                </div>`;
+            }
+            if (k === 'gap') {
+                return `
+                <div class="grid2" style="max-width: 900px;">
+                    <div class="done"><span class="check" style="background: var(--alert); color: white;">!</span> <div><b>Backend noch nicht deployed</b><br><span class="small" style="color:var(--muted)">Neuer Code liegt auf main, aber der Live-Server hat noch die Phase-davor-Version. Ein Befehl, aber ungetestet — mache ich nach dem Termin in Ruhe.</span></div></div>
+                    <div class="done"><span class="check" style="background: var(--alert); color: white;">!</span> <div><b>Scanner liefern noch keine verlässlichen Werte</b><br><span class="small" style="color:var(--muted)">In kontrollierten Tests OK, aber Real-World (verschiedene Phones, Lichter, Böden) noch nicht systematisch gemessen.</span></div></div>
+                    <div class="done"><span class="check" style="background: var(--alert); color: white;">!</span> <div><b>Eigenen Fuß noch nie gescannt</b><br><span class="small" style="color:var(--muted)">Klassisches Founder-Anti-Pattern. Werde diese Woche Nachholen.</span></div></div>
+                    <div class="done"><span class="check" style="background: var(--alert); color: white;">!</span> <div><b>Null Mess-Daten von echten Nutzern</b><br><span class="small" style="color:var(--muted)">Plan steht (mindestens 30 Tests, 5 Phones, 3 Lichter, 5 Personen). Erhebung startet nach Deploy.</span></div></div>
+                </div>`;
+            }
+            if (k === 'next') {
+                return `
+                <div class="grid3" style="max-width: 1000px;">
+                    <div class="cell" style="text-align: center; border-color: var(--alert);">
+                        <b style="font-size: 22px; color: var(--alert);">Jetzt — Hold</b>
+                        <span class="small" style="margin-top: 10px;">Fitly pausiert. Keine neuen Features, keine Deploys.</span>
+                    </div>
+                    <div class="cell active" style="text-align: center;">
+                        <b style="font-size: 22px; color: var(--accent);">2 Wochen — Thesis</b>
+                        <span class="small" style="margin-top: 10px;">Voller Fokus auf Master-Thesis-Abgabe. Hat absoluten Vorrang.</span>
+                    </div>
+                    <div class="cell" style="text-align: center;">
+                        <b style="font-size: 22px;">Danach — Re-Sync</b>
+                        <span class="small" style="margin-top: 10px;">Termin zusammen: Stand checken, Deploy-Plan, Validation-Schritte besprechen.</span>
+                    </div>
+                </div>`;
+            }
+            return '';
+        }
+
+        function render() {
+            let s = slides[i];
+            document.getElementById('slide').innerHTML = `
+                <div class="eyebrow">${s.eyebrow}</div>
+                <h1 class="title">${s.title} <span class="accent">${s.accent}</span></h1>
+                <p class="line">${s.line}</p>
+                <div class="visual">${renderVisual(s.kind)}</div>
+            `;
+            document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+            document.getElementById('dots').innerHTML = slides.map((_, n) => 
+                `<button onclick="go(${n})" class="dot ${n === i ? 'active' : ''}"></button>`
+            ).join('');
+        }
+
+        function go(n) {
+            i = Math.max(0, Math.min(slides.length - 1, n));
+            render();
+        }
+        function next() { go(i + 1); }
+        function prev() { go(i - 1); }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        render();
+    </script>
+</body>
+</html>

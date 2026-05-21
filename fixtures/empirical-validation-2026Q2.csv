@@ -1,0 +1,4 @@
+set_id,subject_id,phone_model,lighting,foot_side,mat_format,caliper_length_mm,caliper_ball_width_mm,caliper_heel_width_mm,scan_tier,scan_length_mm,scan_ball_width_mm,scan_heel_width_mm,scan_completed_at,notes
+sample-001,S0,DEMO-Phone,L1,right,A4,250.0,95.0,65.0,quick-lite,251.0,95.5,65.3,2026-05-05T00:00:00,SAMPLE — replace with real data
+sample-002,S0,DEMO-Phone,L1,left,A4,250.0,95.0,65.0,quick-lite,253.5,96.0,66.0,2026-05-05T00:00:00,SAMPLE — within ±5mm
+sample-003,S0,DEMO-Phone,L1,right,A4,250.0,95.0,65.0,premium-pro,250.5,95.2,65.1,2026-05-05T00:00:00,SAMPLE — within ±3mm

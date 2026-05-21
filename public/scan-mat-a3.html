@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Fitly Scan-Blatt A3 — Druckvorlage (Schuhgröße 43+)</title>
+<style>
+  @page {
+    size: A3 portrait;
+    margin: 10mm;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #111;
+  }
+  .screen-only {
+    padding: 24px;
+    border-bottom: 2px solid #000;
+  }
+  .screen-only h1 {
+    margin: 0 0 8px;
+    font-size: 22px;
+  }
+  .screen-only p {
+    margin: 4px 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .screen-only ol {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .print-button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #111;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  @media print {
+    .screen-only { display: none; }
+    @page { margin: 0; }
+    html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  /* A3-Mat: 1.5× scale of A4-Mat. Marker-Grid bleibt 4×6 mit DICT_4X4_50-IDs
+     (identische Bit-Pattern); nur physische Cell-Pitch wird 45mm (von 30mm).
+     Server-Side: detect_aruco_markers() bekommt mat_format="A3" als Parameter
+     vom Frontend (PreFlow erfasst Schuhgröße ≥43 → A3-Pfad). aruco_detect.py
+     nutzt MAT_MARKER_SPACING_MM_A3=45 für korrekte Pixel-zu-mm-Skala. */
+  .mat-wrap {
+    margin: 18mm auto 0;
+    width: 180mm;
+    page-break-inside: avoid;
+    position: relative;
+  }
+  .mat-img {
+    /* 180 × 270 mm gedruckt — proportional 1.5× von A4-Mat (120×180). Nutzt
+       gleiche scan-mat-aruco.png (1200×1800px → ~169 dpi @ A3). Auf Print
+       reicht das für DICT_4X4_50-Detection (4×4-Bit-Pattern + Quiet-Zone),
+       aber dedicated scan-mat-aruco-a3.png mit ≥300 dpi wäre Premium-Quality
+       (TODO Phase-3). */
+    display: block;
+    width: 180mm;
+    height: 270mm;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  .label-strip {
+    position: absolute;
+    top: -10mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  .scale-marker {
+    position: absolute;
+    bottom: -10mm;
+    font-size: 10pt;
+    font-family: monospace;
+  }
+  .scale-marker.left { left: 0; }
+  .scale-marker.right { right: 0; }
+  /* 90mm-Verifikations-Strecke für A3 (1.5× von A4's 60mm, cell-aligned an
+     45mm-Pitch × 2). Box-sizing: border-box damit Außenkante-zu-Außenkante
+     exakt 90mm ist. */
+  .verify-rule {
+    margin: 8mm auto 0;
+    width: 90mm;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .verify-rule .bar {
+    height: 5mm;
+    border-left: 1.5pt solid #000;
+    border-right: 1.5pt solid #000;
+    border-top: 0.5pt solid #000;
+    box-sizing: border-box;
+  }
+  .verify-rule .label {
+    margin-top: 2mm;
+    font-size: 10pt;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .verify-rule .hint {
+    margin-top: 1mm;
+    font-size: 8pt;
+    color: #444;
+  }
+  .print-warning {
+    margin: 5mm 24mm 0;
+    padding: 4mm;
+    border: 1pt dashed #000;
+    font-size: 10pt;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="screen-only">
+    <h1>Fitly Scan-Blatt A3 (für Schuhgröße EU 43+)</h1>
+    <p><strong>Wichtig:</strong> Drucke mit <strong>tatsächlicher Größe (100 %)</strong> auf <strong>weißes A3-Papier</strong>. NICHT „an Seite anpassen". Falsch skaliert = Maße sind ungenau.</p>
+    <ol>
+      <li>Druck auf <strong>weißes A3-Papier</strong>, Laser oder matter Inkjet.</li>
+      <li>Kein A3-Drucker zuhause? Copyshops oder PDFs an einen Online-Druckdienst senden — A3-Druck ist üblich. Bestelle „tatsächliche Größe" / „100 % Maßstab", KEIN „an Seite anpassen".</li>
+      <li>Leg das Blatt <strong>flach auf hartem Boden</strong> (Fliesen / Holz / Laminat). Teppich → ungenau.</li>
+      <li>Die Kante mit „↑ WAND-SEITE" liegt an der Wand, ganz an der Fußleiste.</li>
+      <li>Stell den nackten Fuß <strong>auf das Blatt</strong>, Ferse berührt die Wand.</li>
+      <li><strong>Verifikation mit Lineal:</strong> die markierte 90-mm-Strecke unten — gemessen <strong>von Außenkante zu Außenkante</strong> der schwarzen Striche — muss exakt <strong>90 mm</strong> sein (±1 mm). Stimmt nicht → Drucker-Skalierung war falsch, neu drucken.</li>
+    </ol>
+    <button class="print-button" onclick="window.print()">Jetzt drucken</button>
+    <p style="margin-top: 16px; font-size: 12px; color: #666;">
+      A3-Variante für Schuhgrößen EU 43+. Marker-Cell-Pitch 45 mm (1.5× von A4).
+      Der serverseitige OpenCV-Detector erkennt Marker via DICT_4X4_50-Pattern;
+      die Pixel-zu-mm-Skala wird aus 45-mm-Pitch berechnet. Pre-Flow übergibt
+      `mat_format="A3"` an die Detection-API. Druck-Skalierung wird zusätzlich
+      über die 90-mm-Verifikations-Strecke geprüft — bei >2 % Abweichung wird
+      der Scan abgelehnt.
+    </p>
+  </div>
+
+  <div class="mat-wrap">
+    <div class="label-strip">↑ WAND-SEITE — diese Kante an die Wand legen</div>
+    <img class="mat-img" src="/scan-mat-aruco.png" alt="Fitly Scan-Blatt A3 mit ArUco-Markern" />
+    <div class="scale-marker left">↤ 45 mm pro Marker-Cell</div>
+    <div class="scale-marker right">180 × 270 mm gesamt ↦</div>
+  </div>
+
+  <div class="verify-rule">
+    <div class="bar"></div>
+    <div class="label">↤ 90 mm Verifikations-Strecke ↦</div>
+    <div class="hint">Mit Lineal nachmessen. Exakt 90 mm = Druck-Skalierung korrekt.</div>
+  </div>
+
+  <div class="print-warning">
+    Drucke „Tatsächliche Größe (100 %)" — KEIN „An Seite anpassen", KEINE Skalierung.
+  </div>
+</body>
+</html>
